@@ -132,6 +132,7 @@ module FC
     
     # mark items_storages for delete
     def mark_deleted
+      File.open('/home/videomore/fc_mark_deleted.log', 'a') { |f| f << "mark_deleted item##{id} name##{name} #{caller}\n" }
       FC::DB.query("UPDATE #{FC::ItemStorage.table_name} SET status='delete' WHERE item_id = #{id}")
       self.status = 'delete'
       save
